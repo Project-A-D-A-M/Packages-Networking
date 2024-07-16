@@ -21,7 +21,7 @@ public enum CountryUrlBuilder {
     
     static private let baseURL: String = "https://adam.carneijp.uk/api"
     
-    case country(country: String)
+    case country(country: String?)
     
     public var request: URLRequest? {
         switch self {
@@ -32,8 +32,10 @@ public enum CountryUrlBuilder {
             request.httpMethod = operation.GET.rawValue
             request.allHTTPHeaderFields = Self.header
             do {
-                let body = try JSONEncoder().encode(CountryRequest(country: country))
-                request.httpBody = body
+                if let country = country {
+                    let body = try JSONEncoder().encode(CountryRequest(country: country))
+                    request.httpBody = body
+                }
                 return request
             } catch let error {
                 print(error.localizedDescription)
