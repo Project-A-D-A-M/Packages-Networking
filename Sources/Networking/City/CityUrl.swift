@@ -19,7 +19,7 @@ public enum CityUrlBuilder {
         "content-type": "application/json"
     ]
     
-    static private let baseURL: String = "https://adam.carneijp.uk/api"
+    static private var baseURL: String { BASE_URL }
     
     case city(city: String, country: String)
     
