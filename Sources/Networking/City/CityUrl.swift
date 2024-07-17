@@ -23,11 +23,13 @@ public enum CityUrlBuilder {
     
     case city(city: String, country: String)
     
+    case photo(city: String)
+    
     public var request: URLRequest? {
         switch self {
             case .city(let city, let country):
             let urlString: String = "\(Self.baseURL)/city"
-            let url = URL(string: urlString)!
+            guard let url = URL(string: urlString) else { return nil }
             var request = URLRequest(url: url)
             request.httpMethod = operation.GET.rawValue
             request.allHTTPHeaderFields = Self.header
@@ -39,6 +41,12 @@ public enum CityUrlBuilder {
                 print(error.localizedDescription)
                 return nil
             }
+            
+        case .photo(let photoUrl):
+            guard let url = URL(string: photoUrl) else { return nil }
+            var request = URLRequest(url: url)
+            request.httpMethod = operation.GET.rawValue
+            return request
         }
     }
 }
