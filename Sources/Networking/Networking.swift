@@ -32,6 +32,8 @@ public struct NetworkService {
             }
             
             do {
+//                print(String(decoding: data, as: UTF8.self))
+                
                 let parsedData = (try JSONSerialization.jsonObject(with: data)) as? [String : Any]
                 
                 guard let arrays = parsedData?.values.compactMap({ value in (value as? NSArray) }) else {
@@ -76,7 +78,7 @@ public struct NetworkService {
                 return completion(.failure(URLError(.badServerResponse)))
             }
 
-            print(String(decoding: data, as: UTF8.self))
+//            print(String(decoding: data, as: UTF8.self))
             
             let decoder = JSONDecoder()
             
@@ -100,7 +102,7 @@ public struct NetworkService {
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
             
-            print(String(decoding: data, as: UTF8.self))
+//            print(String(decoding: data, as: UTF8.self))
             
             let decoder = JSONDecoder()
             
