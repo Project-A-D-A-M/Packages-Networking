@@ -26,21 +26,15 @@ public enum CountryUrlBuilder {
     public var request: URLRequest? {
         switch self {
             case .country(let country):
-            let urlString: String = "\(Self.baseURL)/country"
+            var urlString: String = "\(Self.baseURL)/country"
+            if let country = country {
+                urlString += "/\(country)"
+            }
             let url = URL(string: urlString)!
             var request = URLRequest(url: url)
             request.httpMethod = operation.GET.rawValue
             request.allHTTPHeaderFields = Self.header
-            do {
-                if let country = country {
-                    let body = try JSONEncoder().encode(CountryRequest(country: country))
-                    request.httpBody = body
-                }
-                return request
-            } catch let error {
-                print(error.localizedDescription)
-                return nil
-            }
+            return request
         }
     }
 }
