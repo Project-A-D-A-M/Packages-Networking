@@ -32,7 +32,7 @@ public struct NetworkService {
             }
             
             do {
-//                print(String(decoding: data, as: UTF8.self))
+                print(String(decoding: data, as: UTF8.self))
                 
                 let parsedData = (try JSONSerialization.jsonObject(with: data)) as? [String : Any]
                 
@@ -78,7 +78,7 @@ public struct NetworkService {
                 return completion(.failure(URLError(.badServerResponse)))
             }
 
-//            print(String(decoding: data, as: UTF8.self))
+            print(String(decoding: data, as: UTF8.self))
             
             let decoder = JSONDecoder()
             
