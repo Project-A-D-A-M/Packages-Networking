@@ -28,25 +28,18 @@ public enum CityUrlBuilder {
     public var request: URLRequest? {
         switch self {
             case .city(let city, let country):
-            let urlString: String = "\(Self.baseURL)/city"
-            guard let url = URL(string: urlString) else { return nil }
-            var request = URLRequest(url: url)
-            request.httpMethod = operation.GET.rawValue
-            request.allHTTPHeaderFields = Self.header
-            do {
-                let body = try JSONEncoder().encode(CityRequest(city: city, country: country))
-                request.httpBody = body
+                let urlString: String = "\(Self.baseURL)/city/\(city)/\(country)"
+                guard let url = URL(string: urlString) else { return nil }
+                var request = URLRequest(url: url)
+                request.httpMethod = operation.GET.rawValue
+                request.allHTTPHeaderFields = Self.header
                 return request
-            } catch let error {
-                print(error.localizedDescription)
-                return nil
-            }
             
-        case .photo(let photoUrl):
-            guard let url = URL(string: photoUrl) else { return nil }
-            var request = URLRequest(url: url)
-            request.httpMethod = operation.GET.rawValue
-            return request
+            case .photo(let photoUrl):
+                guard let url = URL(string: photoUrl) else { return nil }
+                var request = URLRequest(url: url)
+                request.httpMethod = operation.GET.rawValue
+                return request
         }
     }
 }
