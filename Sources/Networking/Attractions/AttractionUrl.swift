@@ -2,12 +2,13 @@
 //  File.swift
 //  
 //
-//  Created by Joao Paulo Carneiro on 15/07/24.
+//  Created by Joao Paulo Carneiro on 18/07/24.
 //
 
 import Foundation
 
-public enum CityUrlBuilder {
+
+public enum AttractionUrlBuilder {
     enum operation: String {
         case GET
         case POST
@@ -21,14 +22,14 @@ public enum CityUrlBuilder {
     
     static private var baseURL: String { BASE_URL }
     
-    case city(city: String, country: String)
+    case attraction(city: String, country: String)
     
     case photo(urlString: String)
     
     public var request: URLRequest? {
         switch self {
-            case .city(let city, let country):
-                let urlString: String = "\(Self.baseURL)/city/\(city)/\(country)"
+            case .attraction(let city, let country):
+                let urlString: String = "\(Self.baseURL)/attraction/\(city)/\(country)"
                 guard let url = URL(string: urlString) else { return nil }
                 var request = URLRequest(url: url)
                 request.httpMethod = operation.GET.rawValue
