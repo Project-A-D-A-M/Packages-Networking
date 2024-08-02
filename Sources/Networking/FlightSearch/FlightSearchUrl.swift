@@ -26,19 +26,12 @@ public enum FlightsearchUrlBuilder {
     public var request: URLRequest? {
         switch self {
             case .flight(let origin, let destination):
-            let urlString: String = "\(Self.baseURL)/flight"
+            let urlString: String = "\(Self.baseURL)/flight/\(origin)/\(destination)"
             let url = URL(string: urlString)!
             var request = URLRequest(url: url)
             request.httpMethod = operation.GET.rawValue
             request.allHTTPHeaderFields = Self.header
-            do {
-                let body = try JSONEncoder().encode(FlightSearchRequest(origin: origin, destination: destination))
-                request.httpBody = body
-                return request
-            } catch let error {
-                print(error.localizedDescription)
-                return nil
-            }
+            return request
         }
     }
 }

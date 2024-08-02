@@ -26,19 +26,12 @@ public enum HotelsearchUrlBuilder {
     public var request: URLRequest? {
         switch self {
             case .hotel(let city, let country):
-            let urlString: String = "\(Self.baseURL)/hotel"
+            let urlString: String = "\(Self.baseURL)/hotel/\(city)/\(country)"
             let url = URL(string: urlString)!
             var request = URLRequest(url: url)
             request.httpMethod = operation.GET.rawValue
             request.allHTTPHeaderFields = Self.header
-            do {
-                let body = try JSONEncoder().encode(HotelSearchRequest(city: city, country: country))
-                request.httpBody = body
-                return request
-            } catch let error {
-                print(error.localizedDescription)
-                return nil
-            }
+            return request
         }
     }
 }
