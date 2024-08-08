@@ -8,13 +8,6 @@
 import Foundation
 
 public enum FlightsearchUrlBuilder {
-    enum operation: String {
-        case GET
-        case POST
-        case PUT
-        case DELETE
-    }
-    
     static private let header: [String: String] = [
         "content-type": "application/json"
     ]
@@ -26,11 +19,15 @@ public enum FlightsearchUrlBuilder {
     public var request: URLRequest? {
         switch self {
             case .flight(let origin, let destination):
-            let urlString: String = "\(Self.baseURL)/flight/\(origin)/\(destination)"
-            let url = URL(string: urlString)!
+            
+            let urlString: String = "\(Self.baseURL)/flight?origin=\(origin)&destination=\(destination)"
+            
+            guard let url = URL(string: urlString) else { return nil }
+            
             var request = URLRequest(url: url)
-            request.httpMethod = operation.GET.rawValue
+            request.httpMethod = HttpOperations.GET.rawValue
             request.allHTTPHeaderFields = Self.header
+            
             return request
         }
     }

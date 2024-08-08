@@ -6,41 +6,34 @@
 //
 
 import Foundation
-
-
+// MARK: Nop operating yet
 public enum AttractionUrlBuilder {
-    enum operation: String {
-        case GET
-        case POST
-        case PUT
-        case DELETE
-    }
-    
     static private let header: [String: String] = [
         "content-type": "application/json"
     ]
     
     static private var baseURL: String { BASE_URL }
     
-    case attraction(city: String, country: String)
-    
-    case photo(urlString: String)
+    // TODO: Mudar types para um enum, podendo ser o do google, ou um personalizado... q respeite as caracteristicas do google
+    case atCoordinate(latitude: String, longitude: String, types: [String]?)
     
     public var request: URLRequest? {
         switch self {
-            case .attraction(let city, let country):
-                let urlString: String = "\(Self.baseURL)/attraction/\(city)/\(country)"
-                guard let url = URL(string: urlString) else { return nil }
-                var request = URLRequest(url: url)
-                request.httpMethod = operation.GET.rawValue
-                request.allHTTPHeaderFields = Self.header
-                return request
+        case .atCoordinate(let latitude, let longitude, let types):
+            var urlString = "\(Self.baseURL)/attraction/coordinates?latitude=\(latitude)&longitude=\(longitude)"
+            if let types {
+                for type in types {
+                    urlString += "&types[]=\(type)"
+                }
+            }
             
-            case .photo(let photoUrl):
-                guard let url = URL(string: photoUrl) else { return nil }
-                var request = URLRequest(url: url)
-                request.httpMethod = operation.GET.rawValue
-                return request
+            guard let url = URL(string: urlString) else { return nil }
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = HttpOperations.GET.rawValue
+            request.allHTTPHeaderFields = Self.header
+            
+            return request
         }
     }
 }
