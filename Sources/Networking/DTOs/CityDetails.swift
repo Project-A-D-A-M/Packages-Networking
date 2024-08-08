@@ -7,20 +7,20 @@
 
 import Foundation
 
-final class CityDetails: Codable {
+public final class CityDetails: Codable {
     
-    var id: String?
-    var prefetchId: Int
-    var name: String
-    var country: String
-    var state: String?
-    var imagesIds: [String]
-    var latitude: Double
-    var longitude: Double
-    var description: String?
-    var attractionsIds: [String]
+    public var id: String?
+    public var prefetchId: Int
+    public var name: String
+    public var country: String
+    public var state: String?
+    public var imagesIds: [String]
+    public var latitude: Double
+    public var longitude: Double
+    public var description: String?
+    public var attractionsIds: [String]
     
-    init(id: String? = nil, prefetchId: Int, name: String, country: String, state: String? = nil, imagesIds: [String], latitude: Double, longitude: Double, description: String? = nil, attractionsIds: [String]/*, attraction: [AttractionDetails] = []*/) {
+    public init(id: String? = nil, prefetchId: Int, name: String, country: String, state: String? = nil, imagesIds: [String], latitude: Double, longitude: Double, description: String? = nil, attractionsIds: [String]/*, attraction: [AttractionDetails] = []*/) {
         self.id = id
         self.prefetchId = prefetchId
         self.name = name
