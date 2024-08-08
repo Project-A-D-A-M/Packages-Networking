@@ -20,7 +20,7 @@ public enum FlightsearchUrlBuilder {
         switch self {
             case .flight(let origin, let destination):
             
-            let urlString: String = "\(Self.baseURL)/flight?origin=\(origin)&destination=\(destination)"
+            let urlString: String = "\(Self.baseURL)/flight/\(origin)/\(destination)"
             
             guard let url = URL(string: urlString) else { return nil }
             

@@ -7,6 +7,8 @@
 
 import Foundation
 
+
+
 public final class CityPreFetchDTO: Codable {
     public var id: Int?
     public var name: String

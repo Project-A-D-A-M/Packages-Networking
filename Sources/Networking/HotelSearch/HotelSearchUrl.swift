@@ -19,7 +19,7 @@ public enum HotelsearchUrlBuilder {
     public var request: URLRequest? {
         switch self {
             case .hotel(let city, let country):
-                let urlString: String = "\(Self.baseURL)/hotel?city=\(city)&country=\(country)"
+                let urlString: String = "\(Self.baseURL)/hotel/\(city)/\(country)"
             
                 guard let url = URL(string: urlString) else { return nil }
                 

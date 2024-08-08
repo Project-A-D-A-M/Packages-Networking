@@ -36,7 +36,7 @@ public enum CountryUrlBuilder {
                 return request
             
             case .details(let id):
-                var urlString = "\(Self.baseURL)/country/details?id=\(id)"
+                var urlString = "\(Self.baseURL)/country/details/\(id)"
             
                 guard let url = URL(string: urlString) else { return nil }
                 

@@ -14,14 +14,14 @@ public enum CityUrlBuilder {
     
     static private var baseURL: String { BASE_URL }
     
-    case details(city: String, country: String, latitude: Double, longitude: Double, state: String?)
+    case details(id: Int)
     
     case prefetch(country: String?, region: String?)
     
     public var request: URLRequest? {
         switch self {
-        case .details(let city, let country, let latitude, let longitude, let state):
-            let urlString = "\(Self.baseURL)/city/details?city=\(city)&country=\(country)&latitude=\(latitude)&longitude=\(longitude)\(state != nil ? "&\(state!)" : "")"
+        case .details(let id):
+            let urlString = "\(Self.baseURL)/city/details/\(id)"
             
             guard let url = URL(string: urlString) else { return nil }
             
