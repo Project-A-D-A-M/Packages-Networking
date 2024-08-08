@@ -8,38 +8,46 @@
 import Foundation
 
 public enum CityUrlBuilder {
-    enum operation: String {
-        case GET
-        case POST
-        case PUT
-        case DELETE
-    }
-    
     static private let header: [String: String] = [
         "content-type": "application/json"
     ]
     
     static private var baseURL: String { BASE_URL }
     
-    case city(city: String, country: String)
+    case details(city: String, country: String, latitude: Double, longitude: Double, state: String?)
     
-    case photo(urlString: String)
+    case prefetch(country: String?, region: String?)
     
     public var request: URLRequest? {
         switch self {
-            case .city(let city, let country):
-                let urlString: String = "\(Self.baseURL)/city/\(city)/\(country)"
-                guard let url = URL(string: urlString) else { return nil }
-                var request = URLRequest(url: url)
-                request.httpMethod = operation.GET.rawValue
-                request.allHTTPHeaderFields = Self.header
-                return request
+        case .details(let city, let country, let latitude, let longitude, let state):
+            let urlString = "\(Self.baseURL)/city/details?city=\(city)&country=\(country)&latitude=\(latitude)&longitude=\(longitude)\(state != nil ? "&\(state!)" : "")"
             
-            case .photo(let photoUrl):
-                guard let url = URL(string: photoUrl) else { return nil }
-                var request = URLRequest(url: url)
-                request.httpMethod = operation.GET.rawValue
-                return request
+            guard let url = URL(string: urlString) else { return nil }
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = HttpOperations.GET.rawValue
+            request.allHTTPHeaderFields = Self.header
+            
+            return request
+            
+        case .prefetch(let country, let region):
+            var urlString = "\(Self.baseURL)/city/prefetch"
+            if let country {
+                urlString += "?country=\(country)"
+                if let region {
+                    urlString += "&region=\(region)"
+                }
+            } else if let region {
+                urlString += "?region=\(region)"
+            }
+            
+            guard let url = URL(string: urlString) else { return nil }
+            var request =  URLRequest(url: url)
+            request.httpMethod = HttpOperations.GET.rawValue
+            request.allHTTPHeaderFields = Self.header
+            
+            return request
         }
     }
 }
