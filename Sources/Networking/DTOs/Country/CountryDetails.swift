@@ -16,6 +16,7 @@ public final class CountryDetails: Codable {
     public var numericCode: String
     public var phoneCode: String
     public var capital: String
+    public var capitalId: Int
     public var currency: String
     public var currencyName: String
     public var currencySymbol: String
@@ -32,7 +33,7 @@ public final class CountryDetails: Codable {
     public var emojiU: String
     public var timezones: [TimeZones]
     
-    public init(id: String? = nil, countryId: Int, name: String, iso3: String, iso2: String, numericCode: String, phoneCode: String, capital: String, currency: String, currencyName: String, currencySymbol: String, tld: String, native: String, region: String, regionId: String, subregion: String, subregionId: String? = nil, nationality: String, latitude: String, longitude: String, emoji: String, emojiU: String, timezones: [TimeZones]) {
+    public init(id: String? = nil, countryId: Int, name: String, iso3: String, iso2: String, numericCode: String, phoneCode: String, capital: String, capitalId: Int, currency: String, currencyName: String, currencySymbol: String, tld: String, native: String, region: String, regionId: String, subregion: String, subregionId: String? = nil, nationality: String, latitude: String, longitude: String, emoji: String, emojiU: String, timezones: [TimeZones]) {
         self.id = id
         self.countryId = countryId
         self.name = name
@@ -41,6 +42,7 @@ public final class CountryDetails: Codable {
         self.numericCode = numericCode
         self.phoneCode = phoneCode
         self.capital = capital
+        self.capitalId = capitalId
         self.currency = currency
         self.currencyName = currencyName
         self.currencySymbol = currencySymbol
