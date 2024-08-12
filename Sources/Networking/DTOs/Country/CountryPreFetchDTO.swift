@@ -20,3 +20,13 @@ public final class CountryPreFetchDTO: Codable {
         self.region = region
     }
 }
+
+//extension CountryPreFetchDTO: Hashable {
+//    public static func == (lhs: Networking.CountryPreFetchDTO, rhs: Networking.CountryPreFetchDTO) -> Bool {
+//        lhs.id == rhs.id
+//    }
+//    
+//    public func hash(into hasher: inout Hasher) {
+//        hasher.combine(self)
+//    }
+//}
