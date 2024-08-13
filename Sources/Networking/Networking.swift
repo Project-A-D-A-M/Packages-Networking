@@ -125,31 +125,35 @@ public struct NetworkService {
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
             
-            let parsedData = (try JSONSerialization.jsonObject(with: data)) as? [String : Any]
+//            let parsedData = (try JSONSerialization.jsonObject(with: data))// as? [String : Any]
             
-            guard let arrays = parsedData?.values.compactMap({ value in (value as? NSArray) }) else {
-                return .failure(URLError(.downloadDecodingFailedToComplete))
+//            guard let arrays = parsedData?.values.compactMap({ value in (value as? NSArray) }) else {
+//                return .failure(URLError(.downloadDecodingFailedToComplete))
+//            }
+            
+//            for array in arrays {
+//                
+//                let dicts = array.compactMap { element in
+//                    element as? [String : Any]
+//                }
+//                let newData = try JSONSerialization.data(withJSONObject: dicts, options: [.sortedKeys, .withoutEscapingSlashes])
+//                
+//                let decoder = JSONDecoder()
+//                
+//                let result = try decoder.decode([T].self, from: newData)
+//                
+//                return .success(result)
+//            }
+//            
+//            if arrays.isEmpty {
+//                return .failure(URLError(.downloadDecodingFailedToComplete))
+//            }
+            
+            guard let result = try? JSONDecoder().decode([T].self, from: data) else {
+                return .failure(URLError(.cannotDecodeRawData))
             }
             
-            for array in arrays {
-                
-                let dicts = array.compactMap { element in
-                    element as? [String : Any]
-                }
-                let newData = try JSONSerialization.data(withJSONObject: dicts, options: [.sortedKeys, .withoutEscapingSlashes])
-                
-                let decoder = JSONDecoder()
-                
-                let result = try decoder.decode([T].self, from: newData)
-                
-                return .success(result)
-            }
-            
-            if arrays.isEmpty {
-                return .failure(URLError(.downloadDecodingFailedToComplete))
-            }
-            
-            return .success([])
+            return .success(result)
         } catch let error as DecodingError {
             print(error)
             return .failure(URLError(.downloadDecodingFailedMidStream))

@@ -18,7 +18,7 @@ public enum ImageURLBuilder {
     public var request: URLRequest? {
         switch self {
             case .byId(let id):
-                var urlString = "\(Self.baseURL)/api/images?id=\(id)"
+                let urlString = "\(Self.baseURL)/api/images?id=\(id)"
                 
                 guard let url = URL(string:  urlString) else { return nil}
             
@@ -27,6 +27,14 @@ public enum ImageURLBuilder {
                 request.allHTTPHeaderFields =  Self.header
             
                 return request
+        }
+    }
+    
+    public var url: URL? {
+        switch self {
+        case .byId(let id):
+            let urlString = "\(Self.baseURL)/api/images?id=\(id)"
+            return URL(string: urlString)
         }
     }
     
