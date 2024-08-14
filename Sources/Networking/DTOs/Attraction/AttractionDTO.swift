@@ -16,8 +16,10 @@ public final class AttractionDTO: Codable {
     public var imagesIds: [String]
     public var latitude: Double
     public var longitude: Double
+    public var description: String?
+    public var price: String?
     
-    public init(id: String, name: String, address: String, categories: [String], workingHours: WorkingHours, imagesIds: [String] = [], latitude: Double, longitude: Double) {
+    public init(id: String, name: String, address: String, categories: [String], workingHours: WorkingHours, imagesIds: [String] = [], latitude: Double, longitude: Double, description: String?, price: String?) {
         self.id = id
         self.name = name
         self.address = address
@@ -26,5 +28,7 @@ public final class AttractionDTO: Codable {
         self.imagesIds = imagesIds
         self.latitude = latitude
         self.longitude = longitude
+        self.description = description
+        self.price = price
     }
 }
