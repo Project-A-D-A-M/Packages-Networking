@@ -8,12 +8,12 @@
 import Foundation
 
 public final class CountryPreFetchDTO: Codable {
-    public var id: String
+    public var id: UUID
     public var name: String
     public var capital: String
     public var region: String
     
-    public init(id: String, name: String, capital: String, region: String) {
+    public init(id: UUID, name: String, capital: String, region: String) {
         self.id = id
         self.name = name
         self.capital = capital

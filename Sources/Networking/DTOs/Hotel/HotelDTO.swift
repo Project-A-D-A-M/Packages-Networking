@@ -6,7 +6,7 @@
 //
 
 import Foundation
-public final class Hotel: Codable {
+public final class HotelDTO: Codable {
     public var id: String?
     public var city: String
     public var country: String
