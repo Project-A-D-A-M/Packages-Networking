@@ -14,7 +14,7 @@ public enum AttractionUrlBuilder {
     
     static private var baseURL: String { BASE_URL }
     
-    // TODO: Mudar types para um enum, podendo ser o do google, ou um personalizado... q respeite as caracteristicas do google
+    // TODO: Mudar types para um enum, podendo ser o do google, ou um personalizado... q respeite as caracteristicas do google (?)
     case atCoordinate(latitude: Double, longitude: Double/*, types: [String]?*/)
     
     public var request: URLRequest? {
