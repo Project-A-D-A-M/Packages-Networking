@@ -14,9 +14,9 @@ public enum CityUrlBuilder {
     
     static private var baseURL: String { BASE_URL }
     
-    case details(id: Int)
+    case details(id: UUID)
     
-    case prefetch(country: String?, region: String?, page: Int = 0)
+    case prefetch(country: String?, region: String?, page: Int)
     
     public var request: URLRequest? {
         switch self {

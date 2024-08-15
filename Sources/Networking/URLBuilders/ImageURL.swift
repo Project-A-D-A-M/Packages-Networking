@@ -33,8 +33,15 @@ public enum ImageURLBuilder {
     public var url: URL? {
         switch self {
         case .byId(let id):
-            let urlString = "\(Self.baseURL)/api/images?id=\(id)"
+            let urlString = "\(Self.baseURL)/images/\(id)"
             return URL(string: urlString)
+        }
+    }
+    
+    public var urlString: String {
+        switch self {
+        case .byId(let id):
+            return "\(Self.baseURL)/images/\(id)"
         }
     }
     

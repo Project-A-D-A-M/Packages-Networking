@@ -16,7 +16,7 @@ public enum CountryUrlBuilder {
     
     case prefetch(region: String, country: String?)
     
-    case details(id: Int)
+    case details(id: UUID)
     
     public var request: URLRequest? {
         switch self {
