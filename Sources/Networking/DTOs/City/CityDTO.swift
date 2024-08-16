@@ -7,7 +7,7 @@
 
 import Foundation
 
-public final class CityDTO: Codable {
+public final class CityDTO: NSObject, Codable {
     public var id: String?
     public var prefetchId: UUID
     public var name: String
@@ -16,8 +16,21 @@ public final class CityDTO: Codable {
     public var imagesIds: [String]
     public var latitude: Double
     public var longitude: Double
-    public var description: String?
+    public var cityDescription: String?
     public var attractionsIds: [String]
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case prefetchId
+        case name
+        case country
+        case state
+        case imagesIds
+        case latitude
+        case longitude
+        case cityDescription = "description"
+        case attractionsIds
+    }
     
     public init(id: String? = nil, prefetchId: UUID, name: String, country: String, state: String? = nil, imagesIds: [String], latitude: Double, longitude: Double, description: String? = nil, attractionsIds: [String]) {
         self.id = id
@@ -28,7 +41,7 @@ public final class CityDTO: Codable {
         self.imagesIds = imagesIds
         self.latitude = latitude
         self.longitude = longitude
-        self.description = description
+        self.cityDescription = description
         self.attractionsIds = attractionsIds
     }
 }
