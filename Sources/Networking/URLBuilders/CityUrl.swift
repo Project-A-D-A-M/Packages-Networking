@@ -14,14 +14,14 @@ public enum CityUrlBuilder {
     
     static private var baseURL: String { BASE_URL }
     
-    case details(id: Int)
+    case details(id: UUID)
     
-    case prefetch(country: String?, region: String?)
+    case prefetch(country: String?, region: String?, page: Int)
     
     public var request: URLRequest? {
         switch self {
         case .details(let id):
-            let urlString = "\(Self.baseURL)/city/details/\(id)"
+            let urlString = "\(Self.baseURL)/city/\(id)"
             
             guard let url = URL(string: urlString) else { return nil }
             
@@ -31,7 +31,7 @@ public enum CityUrlBuilder {
             
             return request
             
-        case .prefetch(let country, let region):
+        case .prefetch(let country, let region, let page):
             var urlString = "\(Self.baseURL)/city/prefetch"
             if let country {
                 urlString += "?country=\(country)"
@@ -41,6 +41,8 @@ public enum CityUrlBuilder {
             } else if let region {
                 urlString += "?region=\(region)"
             }
+            
+            urlString += "&page=\(page)"
             
             guard let url = URL(string: urlString) else { return nil }
             var request =  URLRequest(url: url)

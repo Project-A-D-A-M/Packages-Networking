@@ -16,7 +16,7 @@ public enum CountryUrlBuilder {
     
     case prefetch(region: String, country: String?)
     
-    case details(id: Int)
+    case details(id: UUID)
     
     public var request: URLRequest? {
         switch self {
@@ -36,7 +36,7 @@ public enum CountryUrlBuilder {
                 return request
             
             case .details(let id):
-                var urlString = "\(Self.baseURL)/country/details/\(id)"
+                var urlString = "\(Self.baseURL)/country/\(id)"
             
                 guard let url = URL(string: urlString) else { return nil }
                 
