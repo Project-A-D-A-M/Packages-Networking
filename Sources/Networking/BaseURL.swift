@@ -21,6 +21,6 @@ var BASE_URL: String {
         case .homologation:
             return "https://adamhmg.carneijp.uk/api"
         case .dev:
-            return "127.0.0.1:8080"
+            return "http://127.0.0.1:8080/api"
     }
 }
