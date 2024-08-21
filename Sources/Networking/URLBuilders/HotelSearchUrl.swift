@@ -6,7 +6,9 @@
 //
 
 import Foundation
-
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 public enum HotelsearchUrlBuilder {
     static private let header: [String: String] = [
         "content-type": "application/json"

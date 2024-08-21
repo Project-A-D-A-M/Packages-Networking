@@ -6,14 +6,16 @@
 //
 
 import Foundation
-
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 public enum Enviroment: String, Codable {
     case production
     case homologation
     case dev
 }
 
-public var enviroment: Enviroment = .homologation
+public var enviroment: Enviroment = .production
 var BASE_URL: String {
     switch enviroment {
         case .production:
