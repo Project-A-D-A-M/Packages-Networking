@@ -6,6 +6,9 @@
 //
 
 import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 // MARK: Nop operating yet
 public enum AttractionUrlBuilder {
     static private let header: [String: String] = [
