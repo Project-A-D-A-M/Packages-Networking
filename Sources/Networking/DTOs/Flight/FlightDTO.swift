@@ -6,7 +6,7 @@
 //
 
 import Foundation
-public final class FlightDTO: Codable {
+public final class FlightDTO: NSObject, Codable {
     public var id: String?
     public var origin: String
     public var destination: String

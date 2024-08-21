@@ -7,8 +7,8 @@
 
 import Foundation
 
-public final class WorkingHours: Codable {
-    public class Hours: Codable {
+public final class WorkingHours: NSObject, Codable {
+    public class Hours: NSObject, Codable {
         public var opening: Date
         public var closing: Date
         

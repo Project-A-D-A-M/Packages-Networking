@@ -6,7 +6,7 @@
 //
 
 import Foundation
-public final class FlightHistoryPrice: Codable {
+public final class FlightHistoryPrice: NSObject, Codable {
     public var daySpan: Int
     public var price: Int
     public var currency: String
