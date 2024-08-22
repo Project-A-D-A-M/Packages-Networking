@@ -34,10 +34,10 @@ public struct NetworkService {
                 return completion(.failure(URLError(.badServerResponse)))
             }
             
-            if shouldCache {
-                let dataCached = DataCacheable(data: data)
-                CacheManager.shared.setObject(forkey: request, object: dataCached)
-            }
+//            if shouldCache {
+            let dataCached = DataCacheable(data: data)
+            CacheManager.shared.setObject(forkey: request, object: dataCached)
+//            }
             
             return completion(.success(data))
         }
@@ -84,12 +84,12 @@ public struct NetworkService {
                     let result = try decoder.decode([T].self, from: newData)
                     
                     // Salva o resultado na cache caso mandado ter cache
-                    if shouldCache {
-                        let listCached = ListCacheable<T>(items: result)
-                        if !listCached.items.isEmpty {
-                            CacheManager.shared.setObject(forkey: request, object: listCached)
-                        }
+//                    if shouldCache {
+                    let listCached = ListCacheable<T>(items: result)
+                    if !listCached.items.isEmpty {
+                        CacheManager.shared.setObject(forkey: request, object: listCached)
                     }
+//                    }
                     
                     return completion(.success(result))
                 }
@@ -133,13 +133,13 @@ public struct NetworkService {
                 let decodedData = try decoder.decode(T.self, from: data)
                 
                 // Salva o resultado na cache caso mandado ter cache
-                if shouldCache {
-                    if let cacheObjc = decodedData as? NSObject {
-                        CacheManager.shared.setObject(forkey: request, object: cacheObjc)
-                    } else {
-                        print("Error on parse object type: \(T.self) to NSObject on \(#function)")
-                    }
+//                if shouldCache {
+                if let cacheObjc = decodedData as? NSObject {
+                    CacheManager.shared.setObject(forkey: request, object: cacheObjc)
+                } else {
+                    print("Error on parse object type: \(T.self) to NSObject on \(#function)")
                 }
+//                }
                 completion(.success(decodedData))
                 
             } catch let error as DecodingError {
@@ -174,13 +174,13 @@ public struct NetworkService {
             let decodedData = try decoder.decode(T.self, from: data)
             
             // Salva o resultado na cache caso mandado ter cache
-            if shouldCache {
-                if let cacheObjc = decodedData as? NSObject {
-                    CacheManager.shared.setObject(forkey: request, object: cacheObjc)
-                } else {
-                    print("Error on parse object type: \(T.self) to NSObject on \(#function)")
-                }
+//            if shouldCache {
+            if let cacheObjc = decodedData as? NSObject {
+                CacheManager.shared.setObject(forkey: request, object: cacheObjc)
+            } else {
+                print("Error on parse object type: \(T.self) to NSObject on \(#function)")
             }
+//            }
             
             return .success(decodedData)
             
@@ -212,12 +212,12 @@ public struct NetworkService {
             }
             
             // Salva o resultado na cache caso mandado ter cache
-            if shouldCache {
-                let listCached = ListCacheable(items: result)
-                if !listCached.items.isEmpty {
-                    CacheManager.shared.setObject(forkey: request, object: listCached)
-                }
+//            if shouldCache {
+            let listCached = ListCacheable(items: result)
+            if !listCached.items.isEmpty {
+                CacheManager.shared.setObject(forkey: request, object: listCached)
             }
+//            }
             
             return .success(result)
         } catch let error as DecodingError {
