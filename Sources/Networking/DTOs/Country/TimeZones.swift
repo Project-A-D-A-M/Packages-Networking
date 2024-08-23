@@ -6,7 +6,7 @@
 //
 
 import Foundation
-public final class TimeZones: Codable {
+public final class TimeZones: NSObject, Codable {
     public var zoneName: String
     public var gmtOffset: Int
     public var gmtOffsetName: String

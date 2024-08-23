@@ -6,7 +6,7 @@
 //
 
 import Foundation
-public final class HotelDTO: Codable {
+public final class HotelDTO: NSObject, Codable {
     public var id: String?
     public var city: String
     public var country: String

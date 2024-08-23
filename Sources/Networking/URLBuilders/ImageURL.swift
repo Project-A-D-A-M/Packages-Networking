@@ -16,12 +16,13 @@ public enum ImageURLBuilder {
     
     static private var baseURL: String { BASE_URL }
     
-    case byId(id: String)
+    case byId(id: String?)
     
     public var request: URLRequest? {
         switch self {
             case .byId(let id):
-                let urlString = "\(Self.baseURL)/api/images/\(id)"
+            guard let id else { return nil }
+                let urlString = "\(Self.baseURL)/images/\(id)"
                 
                 guard let url = URL(string:  urlString) else { return nil}
             

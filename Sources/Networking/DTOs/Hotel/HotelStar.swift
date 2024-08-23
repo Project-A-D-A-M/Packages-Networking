@@ -6,7 +6,7 @@
 //
 
 import Foundation
-public final class HotelStar: Codable {
+public final class HotelStar: NSObject, Codable {
     public var stars: Int
     public var price: Int
     public var lowMedium: Int

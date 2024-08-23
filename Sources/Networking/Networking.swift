@@ -3,12 +3,28 @@
 //
 
 import Foundation
+import UIKit
+
 #if canImport(FoundationNetworking)
 import FoundationNetworking
 #endif
 
+class DataCacheable: NSObject {
+    let data: Data
+    
+    init(data: Data) {
+        self.data = data
+    }
+}
+
 public struct NetworkService {
-    public static func fetchData(request: URLRequest, completion: @escaping (Result<Data, any Error>) -> ()) {
+    public static func fetchData(request: URLRequest, shouldCache: Bool = false, completion: @escaping (Result<Data, any Error>) -> ()) {
+        if shouldCache {
+            if let objectCached = CacheManager.shared.getObject(forkey: request) as? DataCacheable {
+                return  completion(.success(objectCached.data))
+            }
+        }
+        
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
                 return completion(.failure(error))
@@ -18,12 +34,26 @@ public struct NetworkService {
                 return completion(.failure(URLError(.badServerResponse)))
             }
             
+//            if shouldCache {
+            let dataCached = DataCacheable(data: data)
+            CacheManager.shared.setObject(forkey: request, object: dataCached)
+//            }
+            
             return completion(.success(data))
         }
         .resume()
     }
     
-    public static func fetchMany<T>(request: URLRequest, completion: @escaping (Result<[T], any Error>) -> ()) where T : Decodable, T : Encodable {
+    public static func fetchMany<T>(request: URLRequest, shouldCache: Bool = false, completion: @escaping (Result<[T], any Error>) -> ()) where T : Decodable, T : Encodable {
+        // Busca da cache se mandado ter cache
+        if shouldCache {
+            if let objectCached = CacheManager.shared.getObject(forkey: request) as? ListCacheable<T> {
+                if !objectCached.items.isEmpty {
+                    return completion(.success(objectCached.items))
+                }
+            }
+        }
+        
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
                 return completion(.failure(error))
@@ -53,6 +83,14 @@ public struct NetworkService {
                     
                     let result = try decoder.decode([T].self, from: newData)
                     
+                    // Salva o resultado na cache caso mandado ter cache
+//                    if shouldCache {
+                    let listCached = ListCacheable<T>(items: result)
+                    if !listCached.items.isEmpty {
+                        CacheManager.shared.setObject(forkey: request, object: listCached)
+                    }
+//                    }
+                    
                     return completion(.success(result))
                 }
                 
@@ -70,7 +108,14 @@ public struct NetworkService {
         .resume()
     }
     
-    public static func fetchOne<T>(request: URLRequest, completion: @escaping (Result<T, any Error>) -> ()) where T : Decodable, T : Encodable {
+    public static func fetchOne<T>(request: URLRequest, shouldCache: Bool = false, completion: @escaping (Result<T, any Error>) -> ()) where T : Decodable, T : Encodable {
+        // Busca da cache se mandado ter cache
+        if shouldCache {
+            if let objectCached = CacheManager.shared.getObject(forkey: request) as? T {
+              return  completion(.success(objectCached))
+            }
+        }
+        
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
                 return completion(.failure(error))
@@ -86,6 +131,15 @@ public struct NetworkService {
             
             do {
                 let decodedData = try decoder.decode(T.self, from: data)
+                
+                // Salva o resultado na cache caso mandado ter cache
+//                if shouldCache {
+                if let cacheObjc = decodedData as? NSObject {
+                    CacheManager.shared.setObject(forkey: request, object: cacheObjc)
+                } else {
+                    print("Error on parse object type: \(T.self) to NSObject on \(#function)")
+                }
+//                }
                 completion(.success(decodedData))
                 
             } catch let error as DecodingError {
@@ -99,7 +153,14 @@ public struct NetworkService {
         .resume()
     }
     
-    public static func fetchOne<T: Decodable & Encodable >(request: URLRequest) async -> Result<T, any Error>  {
+    public static func fetchOne<T: Decodable & Encodable >(request: URLRequest, shouldCache: Bool = false) async -> Result<T, any Error>  {
+        // Busca da cache se mandado ter cache
+        if shouldCache {
+            if let objectCached = CacheManager.shared.getObject(forkey: request) as? T {
+              return  .success(objectCached)
+            }
+        }
+        
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
             
@@ -111,6 +172,16 @@ public struct NetworkService {
             let decoder = JSONDecoder()
             
             let decodedData = try decoder.decode(T.self, from: data)
+            
+            // Salva o resultado na cache caso mandado ter cache
+//            if shouldCache {
+            if let cacheObjc = decodedData as? NSObject {
+                CacheManager.shared.setObject(forkey: request, object: cacheObjc)
+            } else {
+                print("Error on parse object type: \(T.self) to NSObject on \(#function)")
+            }
+//            }
+            
             return .success(decodedData)
             
         } catch let error as DecodingError {
@@ -123,37 +194,30 @@ public struct NetworkService {
         }
     }
     
-    public static func fetchMany<T: Decodable & Encodable>(request: URLRequest) async -> Result<[T], any Error> {
+    public static func fetchMany<T: Decodable & Encodable>(request: URLRequest, shouldCache: Bool = false) async -> Result<[T], any Error> {
+        // Busca da cache se mandado ter cache
+        if shouldCache {
+            if let objectCached = CacheManager.shared.getObject(forkey: request) as? ListCacheable<T> {
+                if !objectCached.items.isEmpty {
+                    return .success(objectCached.items)
+                }
+            }
+        }
+        
         do {
-            let (data, response) = try await URLSession.shared.data(for: request)
-            
-//            let parsedData = (try JSONSerialization.jsonObject(with: data))// as? [String : Any]
-            
-//            guard let arrays = parsedData?.values.compactMap({ value in (value as? NSArray) }) else {
-//                return .failure(URLError(.downloadDecodingFailedToComplete))
-//            }
-            
-//            for array in arrays {
-//                
-//                let dicts = array.compactMap { element in
-//                    element as? [String : Any]
-//                }
-//                let newData = try JSONSerialization.data(withJSONObject: dicts, options: [.sortedKeys, .withoutEscapingSlashes])
-//                
-//                let decoder = JSONDecoder()
-//                
-//                let result = try decoder.decode([T].self, from: newData)
-//                
-//                return .success(result)
-//            }
-//            
-//            if arrays.isEmpty {
-//                return .failure(URLError(.downloadDecodingFailedToComplete))
-//            }
+            let (data, _) = try await URLSession.shared.data(for: request)
             
             guard let result = try? JSONDecoder().decode([T].self, from: data) else {
                 return .failure(URLError(.cannotDecodeRawData))
             }
+            
+            // Salva o resultado na cache caso mandado ter cache
+//            if shouldCache {
+            let listCached = ListCacheable(items: result)
+            if !listCached.items.isEmpty {
+                CacheManager.shared.setObject(forkey: request, object: listCached)
+            }
+//            }
             
             return .success(result)
         } catch let error as DecodingError {
