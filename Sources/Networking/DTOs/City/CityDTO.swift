@@ -7,7 +7,7 @@
 
 import Foundation
 
-public final class CityDTO: NSObject, Codable {
+public final class CityDTO: Codable {
     public var id: String?
     public var prefetchId: UUID
     public var name: String

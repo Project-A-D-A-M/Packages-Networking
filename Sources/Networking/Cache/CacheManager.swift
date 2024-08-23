@@ -4,16 +4,7 @@
 //
 //  Created by Joao Paulo Carneiro on 21/08/24.
 //
-
 import Foundation
-
-class ListCacheable<T>: NSObject {
-    var items: [T]
-    
-    init(items: [T]) {
-        self.items = items
-    }
-}
 
 
 final class CacheManager {

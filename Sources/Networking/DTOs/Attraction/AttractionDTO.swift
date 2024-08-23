@@ -7,7 +7,7 @@
 
 import Foundation
 
-public final class AttractionDTO: NSObject, Codable {
+public final class AttractionDTO: Codable {
     public var id: String
     public var name: String
     public var address: String

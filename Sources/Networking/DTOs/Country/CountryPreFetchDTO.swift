@@ -7,7 +7,7 @@
 
 import Foundation
 
-public final class CountryPreFetchDTO: NSObject, Codable {
+public final class CountryPreFetchDTO: Codable {
     public var id: UUID
     public var name: String
     public var capitalId: UUID
