@@ -3,7 +3,6 @@
 //
 
 import Foundation
-import UIKit
 
 #if canImport(FoundationNetworking)
 import FoundationNetworking
