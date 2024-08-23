@@ -7,7 +7,7 @@
 
 import Foundation
 
-public final class CountryDTO: NSObject, Codable {
+public final class CountryDTO: Codable {
     public var id: UUID?
     public var name: String
     public var countryDescription: String

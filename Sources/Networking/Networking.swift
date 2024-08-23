@@ -8,14 +8,6 @@ import Foundation
 import FoundationNetworking
 #endif
 
-class DataCacheable: NSObject {
-    let data: Data
-    
-    init(data: Data) {
-        self.data = data
-    }
-}
-
 public struct NetworkService {
     public static func fetchData(request: URLRequest, shouldCache: Bool = false, completion: @escaping (Result<Data, any Error>) -> ()) {
         if shouldCache {
@@ -33,10 +25,8 @@ public struct NetworkService {
                 return completion(.failure(URLError(.badServerResponse)))
             }
             
-//            if shouldCache {
             let dataCached = DataCacheable(data: data)
             CacheManager.shared.setObject(forkey: request, object: dataCached)
-//            }
             
             return completion(.success(data))
         }
@@ -82,13 +72,10 @@ public struct NetworkService {
                     
                     let result = try decoder.decode([T].self, from: newData)
                     
-                    // Salva o resultado na cache caso mandado ter cache
-//                    if shouldCache {
                     let listCached = ListCacheable<T>(items: result)
                     if !listCached.items.isEmpty {
                         CacheManager.shared.setObject(forkey: request, object: listCached)
                     }
-//                    }
                     
                     return completion(.success(result))
                 }
@@ -110,8 +97,8 @@ public struct NetworkService {
     public static func fetchOne<T>(request: URLRequest, shouldCache: Bool = false, completion: @escaping (Result<T, any Error>) -> ()) where T : Decodable, T : Encodable {
         // Busca da cache se mandado ter cache
         if shouldCache {
-            if let objectCached = CacheManager.shared.getObject(forkey: request) as? T {
-              return  completion(.success(objectCached))
+            if let objectCached = CacheManager.shared.getObject(forkey: request) as? AnyCacheable<T> {
+                return  completion(.success(objectCached.item))
             }
         }
         
@@ -131,14 +118,9 @@ public struct NetworkService {
             do {
                 let decodedData = try decoder.decode(T.self, from: data)
                 
-                // Salva o resultado na cache caso mandado ter cache
-//                if shouldCache {
-                if let cacheObjc = decodedData as? NSObject {
-                    CacheManager.shared.setObject(forkey: request, object: cacheObjc)
-                } else {
-                    print("Error on parse object type: \(T.self) to NSObject on \(#function)")
-                }
-//                }
+                let object = AnyCacheable( decodedData)
+                CacheManager.shared.setObject(forkey: request, object: object)
+                
                 completion(.success(decodedData))
                 
             } catch let error as DecodingError {
@@ -172,14 +154,8 @@ public struct NetworkService {
             
             let decodedData = try decoder.decode(T.self, from: data)
             
-            // Salva o resultado na cache caso mandado ter cache
-//            if shouldCache {
-            if let cacheObjc = decodedData as? NSObject {
-                CacheManager.shared.setObject(forkey: request, object: cacheObjc)
-            } else {
-                print("Error on parse object type: \(T.self) to NSObject on \(#function)")
-            }
-//            }
+            let object = AnyCacheable(decodedData)
+            CacheManager.shared.setObject(forkey: request, object: object)
             
             return .success(decodedData)
             
@@ -210,13 +186,10 @@ public struct NetworkService {
                 return .failure(URLError(.cannotDecodeRawData))
             }
             
-            // Salva o resultado na cache caso mandado ter cache
-//            if shouldCache {
             let listCached = ListCacheable(items: result)
             if !listCached.items.isEmpty {
                 CacheManager.shared.setObject(forkey: request, object: listCached)
             }
-//            }
             
             return .success(result)
         } catch let error as DecodingError {
