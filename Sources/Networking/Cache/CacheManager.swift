@@ -5,7 +5,9 @@
 //  Created by Joao Paulo Carneiro on 21/08/24.
 //
 import Foundation
-
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 final class CacheManager {
     
