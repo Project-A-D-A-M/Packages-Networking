@@ -182,9 +182,11 @@ public struct NetworkService {
         do {
             let (data, _) = try await URLSession.shared.data(for: request)
             
-            guard let result = try? JSONDecoder().decode([T].self, from: data) else {
-                return .failure(URLError(.cannotDecodeRawData))
-            }
+            let decoder = JSONDecoder()
+            
+            decoder.dateDecodingStrategy = .iso8601
+            
+            let result = try decoder.decode([T].self, from: data)
             
             let listCached = ListCacheable(items: result)
             if !listCached.items.isEmpty {
