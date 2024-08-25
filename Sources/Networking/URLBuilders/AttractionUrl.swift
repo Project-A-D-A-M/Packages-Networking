@@ -18,12 +18,19 @@ public enum AttractionUrlBuilder {
     static private var baseURL: String { BASE_URL }
     
     // TODO: Mudar types para um enum, podendo ser o do google, ou um personalizado... q respeite as caracteristicas do google (?)
-    case atCoordinate(latitude: Double, longitude: Double/*, types: [String]?*/)
+    case atCoordinate(latitude: Double, longitude: Double, cityName: String?, countryName: String?/*, types: [String]?*/)
     
     public var request: URLRequest? {
         switch self {
-        case .atCoordinate(let latitude, let longitude/*, let types*/):
+        case .atCoordinate(let latitude, let longitude, let city, let country/*, let types*/):
             var urlString = "\(Self.baseURL)/attraction/coordinates?latitude=\(latitude)&longitude=\(longitude)"
+            if let city {
+                urlString += "&city=\(city)"
+            }
+            
+            if let country {
+                urlString += "&country=\(country)"
+            }
 //            if let types {
 //                for type in types {
 //                    urlString += "&types[]=\(type)"
