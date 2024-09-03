@@ -20,6 +20,10 @@ public enum CityUrlBuilder {
     
     case prefetch(country: String?, region: String?, page: Int)
     
+    case addCounter(id: UUID)
+    
+    case removeCounter(id: UUID)
+    
     public var request: URLRequest? {
         switch self {
         case .details(let id):
@@ -49,6 +53,28 @@ public enum CityUrlBuilder {
             guard let url = URL(string: urlString) else { return nil }
             var request =  URLRequest(url: url)
             request.httpMethod = HttpOperations.GET.rawValue
+            request.allHTTPHeaderFields = Self.header
+            
+            return request
+            
+        case .addCounter(let id):
+            let urlString = "\(Self.baseURL)/city/counter/\(id.uuidString)"
+            
+            guard let url = URL(string: urlString) else { return nil }
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = HttpOperations.POST.rawValue
+            request.allHTTPHeaderFields = Self.header
+            
+            return request
+            
+        case .removeCounter(let id):
+            let urlString = "\(Self.baseURL)/city/counter/\(id.uuidString)"
+            
+            guard let url = URL(string: urlString) else { return nil }
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = HttpOperations.PATCH.rawValue
             request.allHTTPHeaderFields = Self.header
             
             return request

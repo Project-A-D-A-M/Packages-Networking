@@ -11,5 +11,5 @@ enum HttpOperations: String {
     case POST
     case PUT
     case DELETE
-    
+    case PATCH
 }

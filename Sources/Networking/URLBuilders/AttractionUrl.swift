@@ -20,6 +20,10 @@ public enum AttractionUrlBuilder {
     // TODO: Mudar types para um enum, podendo ser o do google, ou um personalizado... q respeite as caracteristicas do google (?)
     case atCoordinate(latitude: Double, longitude: Double, cityName: String?, countryName: String?/*, types: [String]?*/)
     
+    case addCounter(id: String)
+    
+    case removeCounter(id: String)
+    
     public var request: URLRequest? {
         switch self {
         case .atCoordinate(let latitude, let longitude, let city, let country/*, let types*/):
@@ -41,6 +45,28 @@ public enum AttractionUrlBuilder {
             
             var request = URLRequest(url: url)
             request.httpMethod = HttpOperations.GET.rawValue
+            request.allHTTPHeaderFields = Self.header
+            
+            return request
+        
+        case .addCounter(let id):
+            let urlString = "\(Self.baseURL)/attraction/counter/\(id)"
+            
+            guard let url = URL(string: urlString) else { return nil }
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = HttpOperations.POST.rawValue
+            request.allHTTPHeaderFields = Self.header
+            
+            return request
+            
+        case .removeCounter(let id):
+            let urlString = "\(Self.baseURL)/attraction/counter/\(id)"
+            
+            guard let url = URL(string: urlString) else { return nil }
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = HttpOperations.PATCH.rawValue
             request.allHTTPHeaderFields = Self.header
             
             return request
