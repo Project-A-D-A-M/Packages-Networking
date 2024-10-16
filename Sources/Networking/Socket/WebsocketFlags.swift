@@ -4,8 +4,10 @@
 //
 //  Created by Joao Paulo Carneiro on 16/10/24.
 //
+import Foundation
 
-public enum WebsocketFlags: String {
+
+public enum WebsocketFlags: String, Codable {
     case update
     case isEditing
     case requestEdit
