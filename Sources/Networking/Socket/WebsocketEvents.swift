@@ -14,4 +14,5 @@ public enum WebsocketEvents: String, Codable {
     case unavailable
     case finishedEditing
     case error
+    case requestAllUpdateStatus
 }
