@@ -22,12 +22,12 @@ public final class WSCoder {
     
     public static func encode(data: WebsocketComunication) -> String? {
         do {
-            let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
-            return String(data: jsonData, encoding: .utf8)
+            let jsonEncoder = JSONEncoder()
+            let jsonData = try jsonEncoder.encode(data)
+            return String(data: jsonData, encoding: String.Encoding.utf8)
         } catch let error {
             print(error)
             return nil
         }
-        
     }
 }
