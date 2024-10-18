@@ -7,13 +7,11 @@
 import Foundation
 
 
-public enum WebsocketFlags: String, Codable {
+public enum WebsocketEvents: String, Codable {
     case update
     case isEditing
     case requestEdit
     case unavailable
     case finishedEditing
-    case startbeat
-    case heartbeat
-    case endbeat
+    case error
 }
