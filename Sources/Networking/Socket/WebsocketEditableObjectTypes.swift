@@ -7,7 +7,7 @@
 import Foundation
 
 
-public enum WebsocketObjectTypes: String, Codable {
+public enum WebsocketEditableObjectTypes: String, Codable {
     case Trip
     case Event
     case Document
