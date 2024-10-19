@@ -17,19 +17,16 @@ public final class WebsocketHeader: Codable {
         self.payload = ""
     }
     
-    public func setPayload<T: Codable>(payloadObject: T) -> Bool {
+    public func setPayload<T: Codable>(payloadObject: T) throws {
         guard type(of: payloadObject) == messageType.objectType else {
-            print("Type mismatch: expected \(messageType.objectType), but got \(type(of: payloadObject))")
-            return false
+            throw NSError(domain: "Type mismatch: expected \(messageType.objectType), but got \(type(of: payloadObject))", code: 0)
         }
         
         guard let payload: String = CoderService.encode(data: payloadObject) else {
-            print("Failed to encode object")
-            return false
+            throw NSError(domain: "Failed to encode object", code: 0)
         }
         
         self.payload = payload
-        return true
     }
     
     public func getPayload() -> Codable? {
