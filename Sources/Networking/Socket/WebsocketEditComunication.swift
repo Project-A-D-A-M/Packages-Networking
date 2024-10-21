@@ -7,7 +7,7 @@
 import Foundation
 
 
-public final class WebsocketEditComunication: Codable {
+public final class WebsocketEditComunication: Codable, Identifiable, Hashable {
     public var objectID: UUID
     public var objectType: WebsocketEditableObjectTypes
     public var tripID: UUID
@@ -18,5 +18,16 @@ public final class WebsocketEditComunication: Codable {
         self.objectType = objectType
         self.tripID = tripID
         self.responsibleID = responsibleID
+    }
+    
+    public static func == (lhs: WebsocketEditComunication, rhs: WebsocketEditComunication) -> Bool {
+        return lhs.responsibleID == rhs.responsibleID && lhs.tripID == lhs.tripID && lhs.objectType == rhs.objectType && lhs.objectID == rhs.objectID
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(objectID)
+        hasher.combine(objectType)
+        hasher.combine(tripID)
+        hasher.combine(responsibleID)
     }
 }

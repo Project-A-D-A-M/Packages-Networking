@@ -6,7 +6,7 @@
 //
 import Foundation
 
-public final class WebsocketHeader: Codable {
+public final class WebsocketHeader: Codable, Identifiable, Hashable {
     public let messageID: UUID
     public let messageType: WebsocketMessageType
     private var payload: String
@@ -17,6 +17,16 @@ public final class WebsocketHeader: Codable {
         self.payload = ""
     }
     
+    public static func == (lhs: WebsocketHeader, rhs: WebsocketHeader) -> Bool {
+        return lhs.messageID == rhs.messageID && lhs.messageType == lhs.messageType && lhs.payload == rhs.payload
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(messageID)
+        hasher.combine(messageType)
+        hasher.combine(payload)
+    }
+
     public func setPayload<T: Codable>(payloadObject: T) throws {
         guard T.self == messageType.objectType else {
             throw WebSocketCodableError.payloadTypeMissmatch
@@ -47,4 +57,6 @@ public final class WebsocketHeader: Codable {
     public func sendAsData() -> Data? {
         return CoderService.encode(data: self)
     }
+    
+    
 }
