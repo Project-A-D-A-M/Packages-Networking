@@ -50,6 +50,10 @@ public final class WebsocketHeader: Codable, Identifiable, Hashable {
         return payload
     }
     
+    public func getPayload() -> String {
+        return self.payload
+    }
+    
     public func sendAsString() -> String? {
         return CoderService.encode(data: self)
     }
