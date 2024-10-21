@@ -29,8 +29,8 @@ public final class WebsocketHeader: Codable {
         self.payload = payload
     }
     
-    public func getPayload() -> Codable? {
-        return CoderService.decode(data: self.payload, type: self.messageType.objectType)
+    public func getPayload<T: Codable>(type: T.Type) -> T? {
+        return CoderService.decode(data: self.payload, type: type)
     }
     
     public func sendAsString() -> String? {

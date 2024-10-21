@@ -31,14 +31,14 @@ public enum WebsocketMessageType: String, Codable {
     
     public var objectType: Codable.Type {
         switch self {
-        case .update, .finishedEditing, .isEditing, .requestEdit, .unavailable:
-            return WebsocketEditComunication.self
-            
-        case .error:
-            return String.self
-            
-        case .requestAllUpdateStatus:
-            return String.self
+            case .update, .finishedEditing, .isEditing, .requestEdit, .unavailable:
+                return WebsocketEditComunication.self
+                
+            case .error:
+                return String.self
+                
+            case .requestAllUpdateStatus:
+                return String.self
         }
     }
 }
