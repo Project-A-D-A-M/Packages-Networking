@@ -7,13 +7,11 @@
 
 import Foundation
 
-public enum WebSocketCodableError: Error {
+public enum WebSocketCodableError: Error, LocalizedError {
     case payloadTypeMissmatch
     case failedToEncode
     case failedToDecode
-}
-
-public extension WebSocketCodableError: LocalizedError {
+    
     public var description: String {
         switch self {
         case .payloadTypeMissmatch:
