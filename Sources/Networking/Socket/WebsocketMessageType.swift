@@ -29,7 +29,7 @@ public enum WebsocketMessageType: String, Codable {
     /// USUÁRIO Y solicita ao SERVIDOR atualização sobre o statu das informações sobre edição
     case requestAllUpdateStatus
     
-    var objectType: Codable.Type {
+    public var objectType: Codable.Type {
         switch self {
         case .update, .finishedEditing, .isEditing, .requestEdit, .unavailable:
             return WebsocketEditComunication.self

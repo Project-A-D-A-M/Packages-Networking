@@ -7,8 +7,8 @@
 import Foundation
 
 public final class WebsocketHeader: Codable {
-    let messageID: UUID
-    let messageType: WebsocketMessageType
+    public let messageID: UUID
+    public let messageType: WebsocketMessageType
     private var payload: String
     
     public init(messageID: UUID, messageType: WebsocketMessageType) {

@@ -212,7 +212,7 @@ public extension URLSession {
     /// - returns: A tuple containing the binary `Data` that was downloaded,
     ///   as well as a `URLResponse` representing the server's response.
     /// - throws: Any error encountered while performing the data task.
-    func data(from url: URL) async throws -> (Data, URLResponse) {
+    public func data(from url: URL) async throws -> (Data, URLResponse) {
         try await data(for: URLRequest(url: url))
     }
 
@@ -221,7 +221,7 @@ public extension URLSession {
     /// - returns: A tuple containing the binary `Data` that was downloaded,
     ///   as well as a `URLResponse` representing the server's response.
     /// - throws: Any error encountered while performing the data task.
-    func data(for request: URLRequest) async throws -> (Data, URLResponse) {
+    public func data(for request: URLRequest) async throws -> (Data, URLResponse) {
         var dataTask: URLSessionDataTask?
         let onCancel = { dataTask?.cancel() }
 
