@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-public class EventDTO: ObservableObject {
+final public class EventDTO: Codable {
     public enum Types: String, Codable, CaseIterable {
         case Restaurant, Shopping, Outdoor, Art, Walk, Flight, Road, Other
     }
