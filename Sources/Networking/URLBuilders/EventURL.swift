@@ -23,22 +23,22 @@ public enum EventURLBuilder: InjectURLRequestBuilder {
         var request: URLRequest? = nil
         
         switch self {
-            case .getProfileById(let id):
+            case .getEventById(let id):
                 var endpoint = "/api/event/\(id)"
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .GET)
             
-            case .saveProfile(let event):
+            case .saveEvent(let event):
                 var endpoint = "/api/event/save"
                 guard let data = try? JSONEncoder().encode(event) else { return nil }
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .POST, body: data)
                 
-            case .updateProfile(let event):
+            case .updateEvent(let event):
                 var endpoint = "/api/event/update"
             
                 guard let data = try? JSONEncoder().encode(event) else { return nil }
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .PUT, body: data)
                 
-            case .deleteProfile(let id):
+            case .deleteEvent(let id):
                 var endpoint = "/api/event/\(id)"
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .DELETE)
         }
