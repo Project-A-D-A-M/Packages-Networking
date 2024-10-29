@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-public final class ProfileDTO {
+public final class ProfileDTO: Codable {
     /// ID do profile do usuário
     public var id: UUID
     

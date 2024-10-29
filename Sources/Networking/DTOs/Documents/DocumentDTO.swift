@@ -7,7 +7,7 @@
 import Foundation
 import SwiftUI
 
-final public class DocumentDTO {
+final public class DocumentDTO: Codable {
     public var id: UUID
     public var ownerId: String
     public var name: String

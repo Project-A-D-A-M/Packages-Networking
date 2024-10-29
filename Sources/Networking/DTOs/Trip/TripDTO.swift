@@ -7,12 +7,12 @@
 import Combine
 import Foundation
 
-public class TripDTO: Identifiable {
+final public class TripDTO: Codable {
     public enum Types: String, CaseIterable, Codable {
         case Work, Solo, Family, Other
     }
     
-    public struct Dates: Hashable {
+    public struct Dates: Codable, Hashable {
         public var arrival: Date
         public var departure: Date
         
