@@ -20,7 +20,6 @@ import FoundationNetworking
 public enum DocumentURLBuilder: InjectURLRequestBuilder {
     case getDocumentById(id: UUID)
     
-//    case getDocymentByUserId(id: String)
     
     case getDocumentByEventId(id: UUID)
     
@@ -40,9 +39,6 @@ public enum DocumentURLBuilder: InjectURLRequestBuilder {
                 var endpoint = "/api/document/doc/\(id)"
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .GET)
             
-//            case .getDocymentByUserId(let id):
-//                var endpoint = "/api/document/owner/\(id)"
-//                request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .GET)
             case .getDocumentByEventId(let id):
                 var endpoint = "/api/document/event/\(id)"
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .GET)
