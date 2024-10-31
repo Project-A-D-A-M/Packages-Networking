@@ -15,7 +15,7 @@ final public class DocumentDTO: Codable {
     public var fileType: FileType
     public var expirationDate: Date
     
-    public var documentData: Data // no coredata(bacno local) será salvo somente um path e não um documentData, portanto salvar o data no local e pegar seu path, servidor salva data
+    public var documentData: Data
     
     public var shareInfo: ShareInfo
     
