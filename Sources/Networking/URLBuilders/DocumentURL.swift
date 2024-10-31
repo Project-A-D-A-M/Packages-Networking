@@ -20,8 +20,8 @@ import FoundationNetworking
 public enum DocumentURLBuilder: InjectURLRequestBuilder {
     case getDocumentById(id: UUID)
     
-    
-    case getDocumentByEventId(id: UUID)
+    // TODO: Quando o event guardar a lista de ids de documentos, adicionar a rota para buscar por ele
+//    case getDocumentByEventId(id: UUID)
     
     case getDocumentByTripId(id: UUID)
     
@@ -36,29 +36,29 @@ public enum DocumentURLBuilder: InjectURLRequestBuilder {
         
         switch self {
             case .getDocumentById(let id):
-                var endpoint = "/api/document/doc/\(id)"
+                let endpoint: String = "/api/document/doc/\(id)"
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .GET)
             
-            case .getDocumentByEventId(let id):
-                var endpoint = "/api/document/event/\(id)"
-                request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .GET)
+//            case .getDocumentByEventId(let id):
+//                var endpoint = "/api/document/event/\(id)"
+//                request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .GET)
             
             case .getDocumentByTripId(let id):
-                var endpoint = "/api/document/trip/\(id)"
+                let endpoint: String = "/api/document/trip/\(id)"
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .GET)
             
             case .saveDocument(let document):
-                var endpoint = "/api/document/save"
+                let endpoint: String = "/api/document/save"
                 guard let data = try? JSONEncoder().encode(document) else { return nil }
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .POST, body: data)
                 
             case .updateDocument(let document):
-                var endpoint = "/api/document/update"
+                let endpoint: String = "/api/document/update"
                 guard let data = try? JSONEncoder().encode(document) else { return nil }
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .PUT, body: data)
                 
             case .deleteDocument(let id):
-                var endpoint = "/api/document/\(id)"
+            let endpoint: String = "/api/document/\(id)"
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .DELETE)
         }
         
