@@ -20,8 +20,7 @@ import FoundationNetworking
 public enum DocumentURLBuilder: InjectURLRequestBuilder {
     case getDocumentById(id: UUID)
     
-    // TODO: Quando o event guardar a lista de ids de documentos, adicionar a rota para buscar por ele
-//    case getDocumentByEventId(id: UUID)
+    case getDocumentByEventId(id: UUID)
     
     case getDocumentByTripId(id: UUID)
     
@@ -39,9 +38,9 @@ public enum DocumentURLBuilder: InjectURLRequestBuilder {
                 let endpoint: String = "/api/document/doc/\(id)"
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .GET)
             
-//            case .getDocumentByEventId(let id):
-//                var endpoint = "/api/document/event/\(id)"
-//                request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .GET)
+            case .getDocumentByEventId(let id):
+                var endpoint = "/api/document/event/\(id)"
+                request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .GET)
             
             case .getDocumentByTripId(let id):
                 let endpoint: String = "/api/document/trip/\(id)"
