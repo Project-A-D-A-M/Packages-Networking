@@ -13,6 +13,8 @@ import FoundationNetworking
 public enum EventURLBuilder: InjectURLRequestBuilder {
     case getEventById(id: UUID)
     
+    case getEventByTripId(id: UUID)
+    
     case saveEvent(event: EventDTO)
     
     case updateEvent(event: EventDTO)
@@ -24,22 +26,26 @@ public enum EventURLBuilder: InjectURLRequestBuilder {
         
         switch self {
             case .getEventById(let id):
-                var endpoint = "/api/event/\(id)"
+                let endpoint: String = "/api/event/\(id)"
+                request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .GET)
+            
+            case .getEventByTripId(let id):
+                let endpoint: String = "/api/event/trip/\(id)"
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .GET)
             
             case .saveEvent(let event):
-                var endpoint = "/api/event/save"
+                let endpoint: String = "/api/event/save"
                 guard let data = try? JSONEncoder().encode(event) else { return nil }
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .POST, body: data)
                 
             case .updateEvent(let event):
-                var endpoint = "/api/event/update"
+                let endpoint: String = "/api/event/update"
             
                 guard let data = try? JSONEncoder().encode(event) else { return nil }
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .PUT, body: data)
                 
             case .deleteEvent(let id):
-                var endpoint = "/api/event/\(id)"
+                let endpoint: String = "/api/event/\(id)"
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .DELETE)
         }
         
