@@ -202,6 +202,37 @@ public struct NetworkService {
             return .failure(error)
         }
     }
+    
+    /// Serve para requisições que não esperam receber data como resposta.
+    /// Exemplos:
+    ///     - Update de objetos
+    ///     - Delete de objetos
+    ///     - Save de objetos
+    public static func executeRequest(_ request: URLRequest) async throws {
+        let (_, response) = try await URLSession.shared.data(for: request)
+        
+        guard let code = response as? HTTPURLResponse else {
+            throw HttpError.unknown
+        }
+        
+        switch code.statusCode {
+            case 200...299:
+                return
+            case 400...499:
+                throw HttpError.notFound
+            case 500...599:
+                throw HttpError.internalServer
+            default:
+                throw HttpError.unknown
+        }
+        
+    }
+    
+    enum HttpError: Error {
+        case internalServer
+        case notFound
+        case unknown
+    }
 }
 
 
