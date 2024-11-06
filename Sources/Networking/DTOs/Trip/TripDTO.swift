@@ -29,9 +29,9 @@ final public class TripDTO: Codable {
     public var dates: Dates
     public var documents: [UUID]
     public var events: [UUID]
-    public var shareInfo: ShareInfo
+    public var shareInfoDTO: ShareInfoDTO
     
-    public required init(id: UUID = UUID(), name: String, destinations: [DestinationDTO], type: Types, dates: Dates, documents: [UUID], events: [UUID], shareInfo: ShareInfo) {
+    public required init(id: UUID = UUID(), name: String, destinations: [DestinationDTO], type: Types, dates: Dates, documents: [UUID], events: [UUID], shareInfoDTO: ShareInfoDTO) {
         self.id = id
         self.name = name
         self.destinations = destinations
@@ -39,6 +39,6 @@ final public class TripDTO: Codable {
         self.dates = dates
         self.documents = documents
         self.events = events
-        self.shareInfo = shareInfo
+        self.shareInfoDTO = shareInfoDTO
     }
 }

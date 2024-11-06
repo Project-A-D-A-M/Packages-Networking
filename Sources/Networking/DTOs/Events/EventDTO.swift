@@ -20,9 +20,9 @@ final public class EventDTO: Codable {
     public var address: String
     public var price: Float
     public var documents: [UUID]
-    public var shareInfo: ShareInfo
+    public var shareInfoDTO: ShareInfoDTO
     
-    required public init(id: UUID = .init(), date: Date, type: Types, name: String, address: String, price: Float, documents: [UUID], shareInfo: ShareInfo) {
+    required public init(id: UUID = .init(), date: Date, type: Types, name: String, address: String, price: Float, documents: [UUID], shareInfoDTO: ShareInfoDTO) {
         self.id = id
         self.date = date
         self.type = type
@@ -30,6 +30,6 @@ final public class EventDTO: Codable {
         self.address = address
         self.price = price
         self.documents = documents
-        self.shareInfo = shareInfo
+        self.shareInfoDTO = shareInfoDTO
     }
 }

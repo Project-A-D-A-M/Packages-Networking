@@ -17,7 +17,7 @@ final public class DocumentDTO: Codable {
     
     public var documentData: Data
     
-    public var shareInfo: ShareInfo
+    public var shareInfoDTO: ShareInfoDTO
     
     public enum Types: String, CaseIterable, Codable {
         case VISA, Passport, Tickets, Other
@@ -27,7 +27,7 @@ final public class DocumentDTO: Codable {
         case pdf, photo, unknow
     }
     
-    public init(id: UUID = UUID(), ownerId: String, name: String, tag: Types, fileType: FileType, expirationDate: Date, documentData: Data, shareInfo: ShareInfo) {
+    public init(id: UUID = UUID(), ownerId: String, name: String, tag: Types, fileType: FileType, expirationDate: Date, documentData: Data, shareInfoDTO: ShareInfoDTO) {
         self.id = id
         self.ownerId = ownerId
         self.name = name
@@ -35,6 +35,6 @@ final public class DocumentDTO: Codable {
         self.fileType = fileType
         self.expirationDate = expirationDate
         self.documentData = documentData
-        self.shareInfo = shareInfo
+        self.shareInfoDTO = shareInfoDTO
     }
 }
