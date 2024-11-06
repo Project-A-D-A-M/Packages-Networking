@@ -7,7 +7,7 @@
 
 import Foundation
 
-public final class ShareInfo: Codable {
+public final class ShareInfoDTO: Codable {
     public var id: UUID
     public var isShared: Bool
     public var lastChanged: Date
