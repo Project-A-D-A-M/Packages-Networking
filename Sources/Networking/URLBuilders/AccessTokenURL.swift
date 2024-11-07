@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum AccessTokenURLBuilder: InjectURLRequestBuilder {
+public enum AccessTokenURLBuilder: InjectURLRequestBuilder {
     case create(tripID: String)
     case validate(userID: String, token: String)
     
