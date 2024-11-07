@@ -25,6 +25,17 @@ final public class DocumentDTO: Codable {
     
     public enum FileType: String, CaseIterable, Codable {
         case pdf, photo, unknow
+        
+        public var fileExtension: String {
+            switch self {
+            case .pdf:
+                return "pdf"
+            case .photo:
+                return "jpg"
+            case .unknow:
+                return ""
+            }
+        }
     }
     
     public init(id: UUID = UUID(), ownerId: String, name: String, tag: Types, fileType: FileType, expirationDate: Date, documentData: Data, shareInfoDTO: ShareInfoDTO) {
