@@ -21,11 +21,15 @@ public final class ProfileDTO: Codable {
     /// Imagem de escolha para o usuário
     public var userImageData: Data?
     
+    /// Lista de Ids de viagens do usuário
+    public var tripsIDs: [UUID]
     
-    public init(id: UUID = .init(), userId: String, name: String, userImageData: Data? = nil) {
+    
+    public init(id: UUID = .init(), userId: String, name: String, userImageData: Data? = nil, tripsIDs: [UUID]) {
         self.id = id
         self.cloudkitId = userId
         self.name = name
         self.userImageData = userImageData
+        self.tripsIDs = tripsIDs
     }
 }
