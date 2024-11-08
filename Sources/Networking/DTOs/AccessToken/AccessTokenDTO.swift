@@ -11,12 +11,12 @@ public final class AccessTokenDTO: Identifiable, Codable {
     public var tripID: UUID?
     public var userID: String?
     public var token: String?
-    public var expires: Date?
+    public var expires: Double?
     
     public init(tripID: UUID?, userID: String?, token: String?, expires: Date?) {
         self.tripID = tripID
         self.userID = userID
         self.token = token
-        self.expires = expires
+        self.expires = expires?.timeIntervalSince1970
     }
 }
