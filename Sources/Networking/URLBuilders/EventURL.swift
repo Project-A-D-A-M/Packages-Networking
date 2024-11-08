@@ -26,26 +26,26 @@ public enum EventURLBuilder: InjectURLRequestBuilder {
         
         switch self {
             case .getEventById(let id):
-                let endpoint: String = "/api/event/\(id)"
+                let endpoint: String = "/event/\(id)"
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .GET)
             
             case .getEventByTripId(let id):
-                let endpoint: String = "/api/event/trip/\(id)"
+                let endpoint: String = "/event/trip/\(id)"
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .GET)
             
             case .saveEvent(let event):
-                let endpoint: String = "/api/event/save"
+                let endpoint: String = "/event/save"
                 guard let data = try? JSONEncoder().encode(event) else { return nil }
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .POST, body: data)
                 
             case .updateEvent(let event):
-                let endpoint: String = "/api/event/update"
+                let endpoint: String = "/event/update"
             
                 guard let data = try? JSONEncoder().encode(event) else { return nil }
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .PUT, body: data)
                 
             case .deleteEvent(let id):
-                let endpoint: String = "/api/event/\(id)"
+                let endpoint: String = "/event/\(id)"
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .DELETE)
         }
         

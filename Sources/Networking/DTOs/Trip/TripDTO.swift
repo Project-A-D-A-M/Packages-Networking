@@ -13,12 +13,12 @@ final public class TripDTO: Codable {
     }
     
     public struct Dates: Codable, Hashable {
-        public var arrival: Date
-        public var departure: Date
+        public var arrival: Double
+        public var departure: Double
         
         public init(arrival: Date, departure: Date) {
-            self.arrival = arrival
-            self.departure = departure
+            self.arrival = arrival.timeIntervalSince1970
+            self.departure = departure.timeIntervalSince1970
         }
     }
     

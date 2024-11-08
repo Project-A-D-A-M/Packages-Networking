@@ -25,21 +25,21 @@ public enum TripURLBuilder: InjectURLRequestBuilder {
         
         switch self {
             case .getTripById(let id):
-                var endpoint = "/api/trip/\(id)"
+                var endpoint = "/trip/\(id)"
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .GET)
             
             case .saveTrip(let tripDTO):
-                var endpoint = "/api/trip/save"
+                var endpoint = "/trip/save"
                 guard let data = try? JSONEncoder().encode(tripDTO) else { return nil }
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .POST, body: data)
                 
             case .updateTrip(let tripDTO):
-                var endpoint = "/api/trip/update"
+                var endpoint = "/trip/update"
                 guard let data = try? JSONEncoder().encode(tripDTO) else { return nil }
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .PUT, body: data)
                 
             case .deleteTrip(let id):
-                var urlString = "/api/trip/\(id)"
+                var urlString = "/trip/\(id)"
                 request = requestWithHeaders.buildRequest(endPoint: urlString, method: .DELETE)
         }
         
