@@ -35,29 +35,29 @@ public enum DocumentURLBuilder: InjectURLRequestBuilder {
         
         switch self {
             case .getDocumentById(let id):
-                let endpoint: String = "/api/document/doc/\(id)"
+                let endpoint: String = "/document/doc/\(id)"
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .GET)
             
             case .getDocumentByEventId(let id):
-                var endpoint = "/api/document/event/\(id)"
+                var endpoint = "/document/event/\(id)"
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .GET)
             
             case .getDocumentByTripId(let id):
-                let endpoint: String = "/api/document/trip/\(id)"
+                let endpoint: String = "/document/trip/\(id)"
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .GET)
             
             case .saveDocument(let document):
-                let endpoint: String = "/api/document/save"
+                let endpoint: String = "/document/save"
                 guard let data = try? JSONEncoder().encode(document) else { return nil }
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .POST, body: data)
                 
             case .updateDocument(let document):
-                let endpoint: String = "/api/document/update"
+                let endpoint: String = "/document/update"
                 guard let data = try? JSONEncoder().encode(document) else { return nil }
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .PUT, body: data)
                 
             case .deleteDocument(let id):
-            let endpoint: String = "/api/document/\(id)"
+            let endpoint: String = "/document/\(id)"
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .DELETE)
         }
         

@@ -29,7 +29,7 @@ public final class RequestBuilder {
     
     func buildRequest(endPoint: String, method: HttpOperations, body: Data? = nil) -> URLRequest? {
         let path = "\(baseURL)" + endPoint
-        guard let url = URL(string: endPoint) else { return nil }
+        guard let url = URL(string: path) else { return nil }
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
         request.allHTTPHeaderFields = header

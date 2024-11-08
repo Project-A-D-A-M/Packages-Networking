@@ -24,22 +24,22 @@ public enum ProfileURLBuilder: InjectURLRequestBuilder {
         
         switch self {
             case .getProfileById(let id):
-                var endpoint = "/api/profile/\(id)"
+                var endpoint = "/profile/\(id)"
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .GET)
             
             case .saveProfile(let profile):
-                var endpoint = "/api/profile/save"
+                var endpoint = "/profile/save"
                 guard let data = try? JSONEncoder().encode(profile) else { return nil }
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .POST, body: data)
                 
             case .updateProfile(let profile):
-                var endpoint = "/api/profile/update"
+                var endpoint = "/profile/update"
             
                 guard let data = try? JSONEncoder().encode(profile) else { return nil }
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .PUT, body: data)
                 
             case .deleteProfile(let id):
-                var endpoint = "/api/profile/\(id)"
+                var endpoint = "/profile/\(id)"
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .DELETE)
         }
         
