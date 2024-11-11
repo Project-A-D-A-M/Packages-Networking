@@ -28,7 +28,7 @@ public enum DocumentURLBuilder: InjectURLRequestBuilder {
     
     case updateDocument(document: DocumentDTO)
     
-    case deleteDocument(id: UUID)
+    case deleteDocument(id: UUID, userID: String)
     
     public var request: URLRequest? {
         var request: URLRequest? = nil
@@ -56,8 +56,8 @@ public enum DocumentURLBuilder: InjectURLRequestBuilder {
                 guard let data = try? JSONEncoder().encode(document) else { return nil }
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .PUT, body: data)
                 
-            case .deleteDocument(let id):
-            let endpoint: String = "/document/\(id)"
+            case .deleteDocument(let id, let userID):
+            let endpoint: String = "/document/\(id)/\(userID)"
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .DELETE)
         }
         

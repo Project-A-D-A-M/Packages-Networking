@@ -19,7 +19,7 @@ public enum EventURLBuilder: InjectURLRequestBuilder {
     
     case updateEvent(event: EventDTO)
     
-    case deleteEvent(id: UUID)
+    case deleteEvent(id: UUID, userID: String)
     
     public var request: URLRequest? {
         var request: URLRequest? = nil
@@ -44,8 +44,8 @@ public enum EventURLBuilder: InjectURLRequestBuilder {
                 guard let data = try? JSONEncoder().encode(event) else { return nil }
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .PUT, body: data)
                 
-            case .deleteEvent(let id):
-                let endpoint: String = "/event/\(id)"
+            case .deleteEvent(let id, let userID):
+                let endpoint: String = "/event/\(id)/\(userID)"
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .DELETE)
         }
         

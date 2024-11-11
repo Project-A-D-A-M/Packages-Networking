@@ -18,7 +18,7 @@ public enum TripURLBuilder: InjectURLRequestBuilder {
     
     case updateTrip(trip: TripDTO)
     
-    case deleteTrip(id: UUID)
+    case deleteTrip(id: UUID, userID: String)
     
     public var request: URLRequest? {
         var request: URLRequest? = nil
@@ -38,8 +38,8 @@ public enum TripURLBuilder: InjectURLRequestBuilder {
                 guard let data = try? JSONEncoder().encode(tripDTO) else { return nil }
                 request = requestWithHeaders.buildRequest(endPoint: endpoint, method: .PUT, body: data)
                 
-            case .deleteTrip(let id):
-                var urlString = "/trip/\(id)"
+            case .deleteTrip(let id, let userID):
+                var urlString = "/trip/\(id)/\(userID)"
                 request = requestWithHeaders.buildRequest(endPoint: urlString, method: .DELETE)
         }
         
