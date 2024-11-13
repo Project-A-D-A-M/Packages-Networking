@@ -12,16 +12,16 @@ public class DestinationDTO: Identifiable, Codable {
     public var city: String
     public var state: String
     public var country: String
-    public var startDate: Date
-    public var endDate: Date
+    public var startDate: Double
+    public var endDate: Double
     
     public required init(id: UUID = .init(), city: String, state: String, country: String, startDate: Date, endDate: Date) {
         self.id = id
         self.city = city
         self.state = state
         self.country = country
-        self.startDate = startDate
-        self.endDate = endDate
+        self.startDate = startDate.timeIntervalSince1970
+        self.endDate = endDate.timeIntervalSince1970
     }
     
     public var formatted: String {
