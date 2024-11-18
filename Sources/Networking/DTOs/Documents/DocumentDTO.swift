@@ -13,7 +13,7 @@ final public class DocumentDTO: Codable {
     public var name: String
     public var tag: Types
     public var fileType: FileType
-    public var expirationDate: Date
+    public var expirationDate: Double
     
     public var documentData: Data
     
@@ -44,7 +44,7 @@ final public class DocumentDTO: Codable {
         self.name = name
         self.tag = tag
         self.fileType = fileType
-        self.expirationDate = expirationDate
+        self.expirationDate = expirationDate.timeIntervalSince1970
         self.documentData = documentData
         self.shareInfoDTO = shareInfoDTO
     }

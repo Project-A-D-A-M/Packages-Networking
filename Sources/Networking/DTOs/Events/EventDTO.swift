@@ -14,7 +14,7 @@ final public class EventDTO: Codable {
     }
     
     public var id: UUID
-    public var date: Date
+    public var date: Double
     public var type: Types
     public var name: String
     public var address: String
@@ -28,7 +28,7 @@ final public class EventDTO: Codable {
     
     required public init(id: UUID, date: Date, type: Types, name: String, address: String, documentsIDs: [UUID], documents: [DocumentDTO], checklist: [ChecklistItemDTO], description: String, links: [LinkDTO], shareInfoDTO: ShareInfoDTO) {
         self.id = id
-        self.date = date
+        self.date = date.timeIntervalSince1970
         self.type = type
         self.name = name
         self.address = address
