@@ -40,8 +40,3 @@ final public class EventDTO: Codable {
         self.shareInfoDTO = shareInfoDTO
     }
 }
-
-
-
-
-
