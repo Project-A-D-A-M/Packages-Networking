@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftUI
 
 final public class EventDTO: Codable {
     public enum Types: String, Codable, CaseIterable {

@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftUI
 
 public final class ProfileDTO: Codable {
     /// ID do profile do usuário

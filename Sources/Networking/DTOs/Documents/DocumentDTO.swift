@@ -5,7 +5,6 @@
 //  Created by Joao Paulo Carneiro on 22/10/24.
 //
 import Foundation
-import SwiftUI
 
 final public class DocumentDTO: Codable {
     public var id: UUID

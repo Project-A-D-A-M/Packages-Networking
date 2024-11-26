@@ -5,7 +5,6 @@
 //  Created by Joao Paulo Carneiro on 22/10/24.
 //
 import Foundation
-import SwiftUI
 
 public class DestinationDTO: Identifiable, Codable {
     public var id: UUID
