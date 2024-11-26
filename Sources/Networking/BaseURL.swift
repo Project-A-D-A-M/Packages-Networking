@@ -15,7 +15,7 @@ public enum Enviroment: String, Codable {
     case dev
 }
 
-public var enviroment: Enviroment = .homologation
+public var enviroment: Enviroment = .production
 public var websocketURL: String = "\(BASE_URL)/websocket"
 var BASE_URL: String {
     switch enviroment {

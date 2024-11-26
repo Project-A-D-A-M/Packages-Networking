@@ -148,7 +148,6 @@ public struct NetworkService {
             if let data = data as? T {
                 return .success(data)
             }
-//            print(String(decoding: data, as: UTF8.self))
             
             let decoder = JSONDecoder()
             
