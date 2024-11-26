@@ -4,7 +4,6 @@
 //
 //  Created by Joao Paulo Carneiro on 22/10/24.
 //
-import Combine
 import Foundation
 
 final public class TripDTO: Codable {
